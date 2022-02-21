@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./vendor/normalize.css">
+  <title>Место</title>
+</head>
+<body class="root">
+  <header class="header">
+    <img class="header__logo" src="./image/logo.svg" alt="логотип">
+  </header>
+  <main class="content">
+    <section class="profile">
+      <img class="profile__avatar" src="./image/avatar.jpg" alt="Аватар пользователя">
+      <div class="profile__info">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <button class="profile__edit-button button" type="button"></button>
+        <p class="profile__sign">Исследователь океана</p>
+        
+      </div>
+      <button class="profile__add-button button" type="button"></button>
+    </section>
+
+    <ul class="card__list">
+      <li class="card">
+        <img class="card__image" src="./image/places/приморье2.jpeg" alt="Уссурийский район">
+        <div class="card__info">
+          <h2 class="card__title">Уссурийский район</h2>
+          <button class="card__like button" type="button"></button>
+        </div>
+      </li>
+      <li class="card">
+        <img class="card__image" src="./image/places/амурская_обл.jpg" alt="Амурская область">
+        <div class="card__info">
+          <h2 class="card__title">Амурская область</h2>
+          <button class="card__like button" type="button"></button>
+        </div>
+      </li>
+      <li class="card">
+        <img class="card__image" src="./image/places/кольский.jpeg" alt="Кольский">
+        <div class="card__info">
+          <h2 class="card__title">Кольский</h2>
+          <button class="card__like button" type="button"></button>
+        </div>
+      </li>
+      <li class="card">
+        <img class="card__image" src="./image/places/приморье.jpeg" alt="Приморье">
+        <div class="card__info">
+          <h2 class="card__title">Приморье</h2>
+          <button class="card__like button" type="button"></button>
+        </div>
+      </li>
+      <li class="card">
+        <img class="card__image" src="./image/places/якутия.jpeg" alt="Якутия">
+        <div class="card__info">
+          <h2 class="card__title">Якутия</h2>
+          <button class="card__like button" type="button"></button>
+        </div>
+      </li>
+      <li class="card">
+        <img class="card__image" src="./image/places/ямал.jpeg" alt="Ямал">
+        <div class="card__info">
+          <h2 class="card__title">Ямал</h2>
+          <button class="card__like button" type="button"></button>
+        </div>
+      </li>
+    </ul>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">© 2020 Mesto Russia</p>
+  </footer>
+
+  <div class="popup">
+    <div class="popup__container">
+      <p class="popup__header">Редактировать профиль</p>
+      <form class="popup__form" action="/apply/" method="POST">
+        <label>
+          <input class="popup__input" type="text" name="name" id="name" placeholder="Жак-Ив Кусто" required autofocus>
+        </label>
+      
+        <label>
+          <input class="popup__input" type="email" name="email" id="sign" placeholder="Исследователь океана" required>
+        </label>
+
+        <button class="popup__button button" type="submit">Сохранить</button>
+      </form>
+      <button class="popup__close-button button" type="button"></button>
+    </div>
+  </div>
+</body>
+</html>

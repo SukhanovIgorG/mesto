@@ -1,0 +1,388 @@
+.root {
+  background-color: #000000;
+  font-family: Inter, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  padding: 0 19px;
+}
+
+.button {
+  opacity: 100%;
+}
+
+.button:hover {
+  opacity: 50%;
+}
+
+.header {
+  max-width: calc(282px*3 + 17px*2);
+  height: 119px;
+  border-bottom: 1px solid #545454;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  width: 142px;
+  height: 33px;
+}
+
+.content {
+  max-width: calc(282px*3 + 17px*3);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  min-height: 211px;
+}
+
+.profile__avatar {
+  border-radius: 50%;
+  margin-right: 18.5px;
+}
+
+.profile__info {
+  color: white;
+  margin-right: auto;
+  max-width: 356px;
+  display: grid;
+  grid-template-columns: 294px 24px;
+  grid-template-rows: 38px 18px;
+  gap: 18px;
+  row-gap: 16px;
+}
+
+.profile__name {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin: 0;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.profile__sign {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin: 0;
+
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: left;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.profile__edit-button {
+  margin: 0;
+  padding: 0;  
+  align-self: center;
+  border: 1px solid white;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url('./image/icon/pencil.svg') ;
+  background-size: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.profile__add-button {
+  margin: 0;
+  padding: 0;  
+  align-self: center;
+  border: 1px solid white;
+  width: 150px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url('./image/icon/plus.svg') ;
+  background-size: 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.card__list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 282px);
+  grid-template-rows: auto;
+  justify-content: space-around;
+  gap: 18px;
+  row-gap: 20px;
+}
+
+.card {
+  max-width: 282px;
+  background-color: white;
+  width: min-content;
+  border-radius: 5%;
+  overflow: hidden;
+}
+
+.card__title {
+  display: block;
+  font-size: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0px;
+
+  margin-top: 25px;
+  margin-bottom: 31px;
+  margin-left: 21px;
+
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card__image {
+  max-width: none;
+  max-height: 282px;
+}
+
+.card__info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card__like {
+  margin: 0 20px 0 0;
+  padding: 0; 
+  align-self: center;
+  border: none;
+  width: 25px;
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url('./image/icon/like_disabled.svg') ;
+  background-size: 19px 22px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.card__like:active {
+  background-image: url(./image/icon/like_active.svg);
+}
+
+.footer {
+  height: 145px;
+  max-width: calc(282px*3 + 17px*2);
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.footer__copyright {
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #545454;
+  ;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: "";
+
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.popup_opened {
+  display: block;
+}
+
+.popup__container {
+  width: 430px;
+  height: 330px;
+  margin-top: calc(50vh - (330px / 2));
+  margin-left: calc(50% - (430px / 2));
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 5%;
+}
+
+.popup__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup__header {
+  margin-top: 34px;
+  margin-bottom: 24px;
+  margin-left: 34px;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 29px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.popup__input {
+  width: 358px;
+  height: 47px;
+  margin-top: 8px;
+  border: none;
+  border-bottom: 1px rgba(0, 0, 0, .2) solid;
+}
+
+.popup__button {
+  margin: 46px 0 0 0;
+  padding: 0;  
+  align-self: center;
+  border-radius: 5%;
+  border: 0;
+  width: 358px;
+  height: 50px;
+  background-color: black;
+  color: white;
+}
+
+.popup__close-button {
+  margin: 0;
+  padding: 0;  
+  align-self: center;
+  border: 0;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url('./image/icon/Close_Icon.svg') ;
+  background-size: 32px;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  position: relative;
+  top: -338px;
+  right: -438px;
+}
+
+@media screen and (max-width: 700px) {
+
+  .header {
+    height: 84px;
+  }
+
+  .header__logo {
+    width: 104;
+    height: 24px;
+    margin-left: 8px;
+  }
+
+  .profile {
+    margin: 0 auto;
+    max-width: 320px;
+    flex-direction: column;
+  }
+  
+  .profile__info {
+  margin: 0 auto;
+  grid-template-columns: 189px 18px;
+  gap: 10px;
+  row-gap: 14px;
+  }
+
+  .profile__avatar {
+    margin: 38px 0 22px 0;
+  }
+
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+    background-size: 7px;
+  }
+
+  .profile__name {
+    font-size: 27px;
+    line-height: 33px;
+  }
+
+  .profile__sign {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  text-align: center;
+  }
+
+  .profile__add-button {
+    margin-top: 53px;
+    margin-bottom: 53px;
+    width: 282px;
+    height: 50px;
+    background-size: 16px;
+  }
+
+  .footer {
+    height: 98px;
+  }
+
+
+  .popup__container {
+    width: 282px;
+    height: 322px;
+    margin-top: calc(50vh - (322px / 2));
+    margin-left: calc(50% - (282px / 2));
+  }
+
+  .popup__header {
+    margin-left: 22px;
+    font-size: 18px;
+    line-height: 22px;
+    
+  }
+
+  .popup__input {
+    width: 238px;
+    height: 47px;
+  }
+
+  .popup__button {
+    margin: 43px 0 0 0;
+    width: 238px;
+    height: 46px;
+  }
+
+  .popup__close-button {
+    top: -330px;
+    right: -258px;
+  }
+  
+}

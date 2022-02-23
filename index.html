@@ -20,76 +20,82 @@
         />
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button button" type="button"></button>
+          <button class="profile__edit-button" type="button"></button>
           <p class="profile__sign">Исследователь океана</p>
         </div>
-        <button class="profile__add-button button" type="button"></button>
+        <button class="profile__add-button" type="button"></button>
       </section>
 
-      <ul class="cards-list">
-        <li class="card">
-          <img
-            class="card__image"
-            src="./image/places/приморье2.jpeg"
-            alt="Уссурийский район"
-          />
-          <div class="card__info">
-            <h2 class="card__title">Уссурийский район</h2>
-            <button class="card__like button" type="button"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img
-            class="card__image"
-            src="./image/places/амурская_обл.jpg"
-            alt="Амурская область"
-          />
-          <div class="card__info">
-            <h2 class="card__title">Амурская область</h2>
-            <button class="card__like button" type="button"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img
-            class="card__image"
-            src="./image/places/kolskiy.jpeg"
-            alt="Кольский"
-          />
-          <div class="card__info">
-            <h2 class="card__title">Кольский</h2>
-            <button class="card__like button" type="button"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img
-            class="card__image"
-            src="./image/places/приморье.jpeg"
-            alt="Приморье"
-          />
-          <div class="card__info">
-            <h2 class="card__title">Приморье</h2>
-            <button class="card__like button" type="button"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img
-            class="card__image"
-            src="./image/places/якутия.jpeg"
-            alt="Якутия"
-          />
-          <div class="card__info">
-            <h2 class="card__title">Якутия</h2>
-            <button class="card__like button" type="button"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img class="card__image" src="./image/places/ямал.jpeg" alt="Ямал" />
-          <div class="card__info">
-            <h2 class="card__title">Ямал</h2>
-            <button class="card__like button" type="button"></button>
-          </div>
-        </li>
-      </ul>
+      <section aria-label="Список карточек">
+        <ul class="cards-list">
+          <li class="card">
+            <img
+              class="card__image"
+              src="./image/places/приморье2.jpeg"
+              alt="Уссурийский район"
+            />
+            <div class="card__info">
+              <h2 class="card__title">Уссурийский район</h2>
+              <button class="card__like" type="button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img
+              class="card__image"
+              src="./image/places/амурская_обл.jpg"
+              alt="Амурская область"
+            />
+            <div class="card__info">
+              <h2 class="card__title">Амурская область</h2>
+              <button class="card__like" type="button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img
+              class="card__image"
+              src="./image/places/kolskiy.jpeg"
+              alt="Кольский"
+            />
+            <div class="card__info">
+              <h2 class="card__title">Кольский</h2>
+              <button class="card__like" type="button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img
+              class="card__image"
+              src="./image/places/приморье.jpeg"
+              alt="Приморье"
+            />
+            <div class="card__info">
+              <h2 class="card__title">Приморье</h2>
+              <button class="card__like" type="button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img
+              class="card__image"
+              src="./image/places/якутия.jpeg"
+              alt="Якутия"
+            />
+            <div class="card__info">
+              <h2 class="card__title">Якутия</h2>
+              <button class="card__like" type="button"></button>
+            </div>
+          </li>
+          <li class="card">
+            <img
+              class="card__image"
+              src="./image/places/ямал.jpeg"
+              alt="Ямал"
+            />
+            <div class="card__info">
+              <h2 class="card__title">Ямал</h2>
+              <button class="card__like" type="button"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
@@ -98,35 +104,31 @@
     <div class="popup">
       <div class="popup__container">
         <h2 class="popup__header">Редактировать профиль</h2>
-        <form class="popup__form" action="/apply/" method="POST">
-          <label>
-            <input
-              class="popup__input"
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Введите имя"
-              required
-              autofocus
-            />
-          </label>
+        <form class="form" name="edit-form" action="/apply/" method="POST">
+          <input
+            class="form__input"
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Введите имя"
+            required
+            autofocus
+          />
 
-          <label>
-            <input
-              class="popup__input"
-              type="text"
-              name="sign"
-              id="sign"
-              placeholder="Введите описание"
-              required
-            />
-          </label>
+          <input
+            class="form__input"
+            type="text"
+            name="sign"
+            id="sign"
+            placeholder="Введите описание"
+            required
+          />
 
-          <button class="popup__button button" type="submit">Сохранить</button>
+          <button class="form__button" type="submit">Сохранить</button>
         </form>
-        <button class="popup__close-button button" type="button"></button>
-        <script src="./script/index.js"></script>
+        <button class="popup__close-button" type="button"></button>
       </div>
     </div>
+    <script src="./script/index.js"></script>
   </body>
 </html>

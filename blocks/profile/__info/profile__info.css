@@ -4,7 +4,7 @@
   max-width: 356px;
   display: grid;
   grid-template-columns: 294px 24px;
-  grid-template-rows: 38px 18px;
+  grid-template-rows: min-content;
   gap: 18px;
   row-gap: 16px;
 }

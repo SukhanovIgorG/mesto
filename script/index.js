@@ -23,8 +23,8 @@ function popupInvisible() {
 function formSubmitHandler(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  let newName = popup.querySelector("#name").value; // Получите значение полей jobInput и nameInput из свойства value
-  let newSign = popup.querySelector("#sign").value;
+  let newName = nameInput.value; // Получите значение полей jobInput и nameInput из свойства value
+  let newSign = jobInput.value;
 
   profileName.textContent = newName; // Вставьте новые значения с помощью textContent
   profileSign.textContent = newSign;

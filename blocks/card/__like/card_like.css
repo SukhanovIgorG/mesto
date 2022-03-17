@@ -17,6 +17,6 @@
   cursor: pointer;
 }
 
-.card__like:active {
+.card__like_active {
   background-image: url(../../../image/icon/like_active.svg);
 }

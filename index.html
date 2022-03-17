@@ -27,81 +27,14 @@
       </section>
 
       <section aria-label="Список карточек">
-        <ul class="cards-list">
-          <li class="card">
-            <img
-              class="card__image"
-              src="./image/places/приморье2.jpeg"
-              alt="Уссурийский район"
-            />
-            <div class="card__info">
-              <h2 class="card__title">Уссурийский район</h2>
-              <button class="card__like" type="button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img
-              class="card__image"
-              src="./image/places/амурская_обл.jpg"
-              alt="Амурская область"
-            />
-            <div class="card__info">
-              <h2 class="card__title">Амурская область</h2>
-              <button class="card__like" type="button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img
-              class="card__image"
-              src="./image/places/kolskiy.jpeg"
-              alt="Кольский"
-            />
-            <div class="card__info">
-              <h2 class="card__title">Кольский</h2>
-              <button class="card__like" type="button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img
-              class="card__image"
-              src="./image/places/приморье.jpeg"
-              alt="Приморье"
-            />
-            <div class="card__info">
-              <h2 class="card__title">Приморье</h2>
-              <button class="card__like" type="button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img
-              class="card__image"
-              src="./image/places/якутия.jpeg"
-              alt="Якутия"
-            />
-            <div class="card__info">
-              <h2 class="card__title">Якутия</h2>
-              <button class="card__like" type="button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img
-              class="card__image"
-              src="./image/places/ямал.jpeg"
-              alt="Ямал"
-            />
-            <div class="card__info">
-              <h2 class="card__title">Ямал</h2>
-              <button class="card__like" type="button"></button>
-            </div>
-          </li>
-        </ul>
+        <ul class="cards-list"></ul>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup" id="edit-profile">
       <div class="popup__container">
         <h2 class="popup__header">Редактировать профиль</h2>
         <form class="form" name="edit-form" action="/apply/" method="POST">
@@ -123,12 +56,64 @@
             placeholder="Введите описание"
             required
           />
-
           <button class="form__button" type="submit">Сохранить</button>
         </form>
         <button class="popup__close-button" type="button"></button>
       </div>
     </div>
+
+    <div class="popup" id="new-place">
+      <div class="popup__container">
+        <h2 class="popup__header">Новое место</h2>
+        <form
+          class="form"
+          name="form-place"
+          id="form-place"
+          action="/apply/"
+          method="POST"
+        >
+          <input
+            class="form__input"
+            type="text"
+            name="new-place"
+            id="new-place"
+            placeholder="Название"
+            requiredƒ
+            autofocus
+          />
+
+          <input
+            class="form__input"
+            type="text"
+            name="new-photo"
+            id="new-photo"
+            placeholder="ссылка на картинку"
+            required
+          />
+          <button class="form__button" type="submit">Сохранить</button>
+        </form>
+        <button class="popup__close-button" type="button"></button>
+      </div>
+    </div>
+
+    <template id="card-template">
+      <li class="card">
+        <img class="card__image" src="" alt="" />
+        <button class="card__trash" type="button"></button>
+        <div class="card__info">
+          <h2 class="card__title"></h2>
+          <button class="card__like" type="button"></button>
+        </div>
+      </li>
+    </template>
+
+    <div class="popup-photo">
+      <div class="popup-photo__contein">
+        <button class="popup-photo__close-button" type="button"></button>
+        <img class="popup-photo__img" src="#" alt="увеличенное изображение" />
+      </div>
+    </div>
+
     <script src="./script/index.js"></script>
   </body>
 </html>

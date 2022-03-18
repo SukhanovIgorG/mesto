@@ -1,8 +1,8 @@
-@-webkit-keyframes fadeIn {
+@-webkit-keyframes fadein {
   from { opacity: 0; visibility: hidden;}
     to { opacity: 1; visibility: visible;}
 }
-@keyframes fadeIn {
+@keyframes fadein {
   from { opacity: 0; visibility: hidden;}
     to { opacity: 1; visibility: visible;}
 }

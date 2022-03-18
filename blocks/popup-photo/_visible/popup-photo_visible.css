@@ -1,5 +1,5 @@
 .popup-photo_visible {
-  -webkit-animation: fadeIn 1s forwards;
-  animation: fadeIn 1s forwards;
+  -webkit-animation: fadein 1s forwards;
+  animation: fadein 1s forwards;
   visibility: visible;
 }

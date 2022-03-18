@@ -25,40 +25,43 @@ const initialCards = [
   },
 ];
 
-let editButton = document.querySelector(".profile__edit-button"); // нажатие на редактирование профиля
-let popup = document.querySelector("#edit-profile");
-let form = popup.querySelector(".form"); // Находим форму в DOM
-let closButton = popup.querySelector(".popup__close-button"); // нажатие на закрытие формы редактирования
-let nameInput = form.querySelector("#name"); // Находим поля формы в DOM
-let jobInput = form.querySelector("#sign"); // Воспользуйтесь инструментом .querySelector()
+const editButton = document.querySelector(".profile__edit-button"); // нажатие на редактирование профиля
+const popup = document.querySelector("#edit-profile");
+const form = popup.querySelector(".form"); // Находим форму в DOM
+const closButton = popup.querySelector(".popup__close-button"); // нажатие на закрытие формы редактирования
+const nameInput = form.querySelector("#name"); // Находим поля формы в DOM
+const jobInput = form.querySelector("#sign"); // Воспользуйтесь инструментом .querySelector()
 
-let cardTemplate = document.querySelector("#card-template").content;
+const cardTemplate = document.querySelector("#card-template").content;
 
-let profile = document.querySelector(".profile");
-let profileName = profile.querySelector(".profile__name"); // Выберите элементы, куда должны быть вставлены значения полей
-let profileSign = profile.querySelector(".profile__sign");
+const profile = document.querySelector(".profile");
+const profileName = profile.querySelector(".profile__name"); // Выберите элементы, куда должны быть вставлены значения полей
+const profileSign = profile.querySelector(".profile__sign");
 
-let addPlaceButton = document.querySelector(".profile__add-button");
-let newPlace = document.querySelector("#new-place");
-let closePlaceButton = newPlace.querySelector(".popup__close-button");
-let cardsList = document.querySelector(".cards-list");
-let formPlace = newPlace.querySelector("#form-place");
-let newPlaceNameInput = formPlace.querySelector("#new-place");
-let newPlacePhotoInput = formPlace.querySelector("#new-photo");
+const addPlaceButton = document.querySelector(".profile__add-button");
+const newPlace = document.querySelector("#new-place");
+const closePlaceButton = newPlace.querySelector(".popup__close-button");
+const cardsList = document.querySelector(".cards-list");
+const formPlace = newPlace.querySelector("#form-place");
+const newPlaceNameInput = formPlace.querySelector("#new-title");
+const newPlacePhotoInput = formPlace.querySelector("#new-photo");
 
-let popupPhoto = document.querySelector(".popup-photo");
-let popupPhotoImg = document.querySelector(".popup-photo__img");
-let popupPhotoCloseButton = popupPhoto.querySelector(".popup-photo__close-button");
+const popupPhoto = document.querySelector(".popup-photo");
+const popupPhotoImg = popupPhoto.querySelector(".popup-photo__img");
+const popupPhotoTitle = popupPhoto.querySelector(".popup-photo__title");
+const popupPhotoCloseButton = popupPhoto.querySelector(
+  ".popup-photo__close-button"
+);
 
 initialCards.forEach(function (place) {
-  let cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   cardsList.append(cardElement);
 
   cardElement.querySelector(".card__title").textContent = place.name;
   cardElement.querySelector("img").src = place.link;
   cardElement.querySelector("img").alt = place.name;
 });
-let cards = document.querySelectorAll(".card");
+const cards = document.querySelectorAll(".card"); // перемещение обьявления переменно выше перебора initialCards невозможо, тк карточки не созданы.
 
 function popupVisible() {
   popup.classList.add("popup_visible");
@@ -67,23 +70,21 @@ function popupVisible() {
   jobInput.value = profileSign.textContent;
 }
 
-
 function popupInvisible() {
   popup.classList.remove("popup_visible");
 }
 
 function formSubmitHandler(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  evt.preventDefault(); //  отменяет стандартную отправку формы.
 
-  let newName = nameInput.value; // Получите значение полей jobInput и nameInput из свойства value
-  let newSign = jobInput.value;
+  const newName = nameInput.value; // Получите значение полей jobInput и nameInput из свойства value
+  const newSign = jobInput.value;
 
   profileName.textContent = newName; // Вставьте новые значения с помощью textContent
   profileSign.textContent = newSign;
 
   popupInvisible(); // закрываем попап при нажатии на сохранить
 }
-
 
 function newPlaceVisible() {
   newPlace.classList.toggle("popup_visible");
@@ -92,8 +93,8 @@ function newPlaceVisible() {
 function formSubmitHandler(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  let newName = nameInput.value; // Получите значение полей jobInput и nameInput из свойства value
-  let newSign = jobInput.value;
+  const newName = nameInput.value; // Получите значение полей jobInput и nameInput из свойства value
+  const newSign = jobInput.value;
 
   profileName.textContent = newName; // Вставьте новые значения с помощью textContent
   profileSign.textContent = newSign;
@@ -105,70 +106,77 @@ editButton.addEventListener("click", popupVisible);
 closButton.addEventListener("click", popupInvisible);
 form.addEventListener("submit", formSubmitHandler); // он будет следить за событием “submit” - «отправка»
 
-
 addPlaceButton.addEventListener("click", newPlaceVisible);
 closePlaceButton.addEventListener("click", newPlaceVisible);
 
 formPlace.addEventListener("submit", newPlaceSubmit);
 
 function newPlaceSubmit(evt) {
+  // функция добавления карточки
   evt.preventDefault();
 
-  let cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   cardsList.prepend(cardElement);
 
-  let newPlaceName = newPlaceNameInput.value;
-  let newPlacePhoto = newPlacePhotoInput.value;
+  const newPlaceName = newPlaceNameInput.value;
+  const newPlacePhoto = newPlacePhotoInput.value;
 
   cardElement.querySelector(".card__title").textContent = newPlaceName;
   cardElement.querySelector("img").src = newPlacePhoto;
   cardElement.querySelector("img").alt = newPlaceName;
 
-  let trash = cardElement.querySelector(".card__trash");
+  // на элементы новой карточки навешиваются слушатели
+  const trash = cardElement.querySelector(".card__trash");
   trash.addEventListener("click", function () {
     trash.parentElement.remove();
   });
-  let like = cardElement.querySelector(".card__like");
+  const like = cardElement.querySelector(".card__like");
   like.addEventListener("click", function () {
-    like.classList.toggle("card__like_active")
+    like.classList.toggle("card__like_active");
   });
-  let image = cardElement.querySelector(".card__image");
+  const image = cardElement.querySelector(".card__image");
   image.addEventListener("click", clickOnImage(image));
 
+  // поля заполнения формы очищаются
   newPlaceVisible();
   newPlaceNameInput.value = "";
   newPlacePhotoInput.value = "";
 }
 
 function trashOneCard(trash) {
+  // обработчик удаления
   trash.addEventListener("click", function () {
     trash.parentElement.remove();
   });
 }
 function likeOneCard(like) {
+  // обработчик лайка
   like.addEventListener("click", function () {
-    like.classList.toggle("card__like_active")
+    like.classList.toggle("card__like_active");
   });
 }
 
 function visiblePopupPhoto() {
+  // обработчик увеличения фото
   popupPhoto.classList.toggle("popup-photo_visible");
 
-  popupPhotoCloseButton.addEventListener('click', visiblePopupPhoto);
+  popupPhotoCloseButton.addEventListener("click", visiblePopupPhoto);
 }
 
 function clickOnImage(image) {
-  image.addEventListener('click', () => {
+  image.addEventListener("click", () => {
     popupPhotoImg.src = image.src;
+    popupPhotoTitle.textContent = image.alt;
     visiblePopupPhoto();
-  })
+  });
 }
 
 Array.from(cards).forEach(function (cardForClick) {
-  let trash = cardForClick.querySelector(".card__trash");
-  trashOneCard(trash);
-  let like = cardForClick.querySelector(".card__like");
+  // из псевдомассива карточек создаем массив и перебором из каждой картоки определем кнопки,
+  const trash = cardForClick.querySelector(".card__trash"); // определяем кнопку
+  trashOneCard(trash); // для кнопок вызываем функции, которые навесят слушателя события и обработчик события.
+  const like = cardForClick.querySelector(".card__like");
   likeOneCard(like);
-  let image = cardForClick.querySelector(".card__image");
+  const image = cardForClick.querySelector(".card__image");
   clickOnImage(image);
 });

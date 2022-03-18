@@ -1,4 +1,4 @@
-.popup__close-button {
+.popup-photo__close-button {
   margin: 0;
   padding: 0;
   align-self: center;
@@ -11,20 +11,18 @@
   background-repeat: no-repeat;
   background-position: center;
 
-  position: relative;
-  top: -338px;
-  right: -438px;
+  position: absolute;
+  top: -25px;
+  right: -25px;
 }
 
-.popup__close-button:hover {
+.popup-photo__close-button:hover {
   opacity: 60%;
   cursor: pointer;
 }
 
 @media screen and (max-width: 700px) {
-  .popup__close-button {
-    top: -330px;
-    right: -258px;
+  .popup-photo__close-button {
     background-size: 20px;
   }
 }

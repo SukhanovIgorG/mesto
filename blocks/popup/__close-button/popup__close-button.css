@@ -11,9 +11,9 @@
   background-repeat: no-repeat;
   background-position: center;
 
-  position: relative;
-  top: -338px;
-  right: -438px;
+  position: absolute;
+  top: -40px;
+  right: -40px;
 }
 
 .popup__close-button:hover {
@@ -23,8 +23,8 @@
 
 @media screen and (max-width: 700px) {
   .popup__close-button {
-    top: -330px;
-    right: -258px;
+    top: -40px;
+    right: -3px;
     background-size: 20px;
   }
 }

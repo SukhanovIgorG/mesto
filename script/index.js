@@ -39,7 +39,7 @@ function cloneCardTemplate(place) {
   });
   const like = cardElement.querySelector(".card__like");
   like.addEventListener("click", function () {
-    return like.classList.toggle("card__like_active");
+      like.classList.toggle("card__like_active");
   });
   const image = cardElement.querySelector(".card__image");
   image.addEventListener("click", function () {
@@ -90,6 +90,8 @@ form.addEventListener("submit", formSubmitHandler); // он будет след�
 buttonAddPlace.addEventListener("click", () => {openPopup(placeForAdd)});
 buttonClosedPlace.addEventListener("click", () => {closedPopup(placeForAdd)});
 
+popupPhotoCloseButton.addEventListener("click", () => { closedPopup(popupPhoto); })
+
 formPlace.addEventListener("submit", placeForAddSubmit);
 
 function placeForAddSubmit(evt) {
@@ -111,6 +113,4 @@ function placeForAddSubmit(evt) {
 function visiblePopupPhoto() {
   // обработчик увеличения фото
   openPopup(popupPhoto);
-
-  popupPhotoCloseButton.addEventListener("click", () => { closedPopup(popupPhoto); });
 }

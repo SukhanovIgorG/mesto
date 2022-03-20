@@ -1,7 +1,7 @@
 const buttonEditProfile = document.querySelector(".profile__edit-button"); // нажатие на редактирование профиля
-const popup = document.querySelector(".popup_type_edit-profile");
-const form = popup.querySelector(".form"); // Находим форму в DOM
-const buttonClosedPopup = popup.querySelector(".popup__close-button"); // нажатие на закрытие формы редактирования
+const popupProfile = document.querySelector(".popup_type_edit-profile");
+const form = popupProfile.querySelector(".form"); // Находим форму в DOM
+const buttonClosedPopup = popupProfile.querySelector(".popup__close-button"); // нажатие на закрытие формы редактирования
 const nameInput = form.querySelector(".form__input_type_name"); // Находим поля формы в DOM
 const jobInput = form.querySelector(".form__input_type_sign"); // Воспользуйтесь инструментом .querySelector()
 
@@ -13,7 +13,7 @@ const profileSign = profile.querySelector(".profile__sign");
 
 const buttonAddPlace = document.querySelector(".profile__add-button");
 const placeForAdd = document.querySelector(".popup_type_new-place");
-const closePlaceButton = placeForAdd.querySelector(".popup__close-button");
+const buttonClosedPlace = placeForAdd.querySelector(".popup__close-button");
 const cardsList = document.querySelector(".cards-list");
 const formPlace = placeForAdd.querySelector(".form_type_new-place");
 const placeForAddNameInput = formPlace.querySelector(".form__input_type_place");
@@ -55,19 +55,20 @@ initialCards.forEach((place) => {
     cardsList.append(newCard);
   });
 
-function popupProfileOpen () {
-  popup.classList.add("popup_visible");
-}
+// открыть закрыть попап
+  function openPopup(popupElement) {
+    popupElement.classList.add("popup_visible")
+    
+  } 
+  function closedPopup(popupElement) {
+    popupElement.classList.remove("popup_visible")
+  }
 
-function popupProfile() {
+function popupEditProfile() {
 
   nameInput.value = profileName.textContent;
   jobInput.value = profileSign.textContent;
-  popupProfileOpen();
-}
-
-function popupProfileClosed() {
-  popup.classList.remove("popup_visible");
+  openPopup(popupProfile);
 }
 
 function formSubmitHandler(evt) {
@@ -79,35 +80,15 @@ function formSubmitHandler(evt) {
   profileName.textContent = newName; // Вставьте новые значения с помощью textContent
   profileSign.textContent = newSign;
 
-  popupProfileClosed(); // закрываем попап при нажатии на сохранить
+  closedPopup(popupProfile); // закрываем попап при нажатии на сохранить
 }
 
-function formSubmitHandler(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
-  const newName = nameInput.value; // Получите значение полей jobInput и nameInput из свойства value
-  const newSign = jobInput.value;
-
-  profileName.textContent = newName; // Вставьте новые значения с помощью textContent
-  profileSign.textContent = newSign;
-
-  popupProfileClosed(); // закрываем попап при нажатии на сохранить
-}
-
-buttonEditProfile.addEventListener("click", popupProfile);
-buttonClosedPopup.addEventListener("click", popupProfileClosed);
+buttonEditProfile.addEventListener("click", popupEditProfile);
+buttonClosedPopup.addEventListener("click", () => { closedPopup(popupProfile); });
 form.addEventListener("submit", formSubmitHandler); // он будет следить за событием “submit” - «отправка»
 
-function placeForAddOpen() {
-  placeForAdd.classList.add("popup_visible");
-}
-
-function placeForAddClosed() {
-  placeForAdd.classList.remove("popup_visible");
-}
-
-buttonAddPlace.addEventListener("click", placeForAddOpen);
-closePlaceButton.addEventListener("click", placeForAddClosed);
+buttonAddPlace.addEventListener("click", () => {openPopup(placeForAdd)});
+buttonClosedPlace.addEventListener("click", () => {closedPopup(placeForAdd)});
 
 formPlace.addEventListener("submit", placeForAddSubmit);
 
@@ -115,23 +96,21 @@ function placeForAddSubmit(evt) {
   // функция добавления карточки
   evt.preventDefault();
 
-  const placeForAdd = {};
+  const placeAdd = {};
 
-  placeForAdd['name'] = placeForAddNameInput.value;
-  placeForAdd['link'] = placeForAddPhotoInput.value;
-  cardsList.prepend(cloneCardTemplate(placeForAdd));
+  placeAdd['name'] = placeForAddNameInput.value;
+  placeAdd['link'] = placeForAddPhotoInput.value;
+  cardsList.prepend(cloneCardTemplate(placeAdd));
 
   // поля заполнения формы очищаются
-  placeForAddClosed();
+  closedPopup(placeForAdd);
   placeForAddNameInput.value = "";
   placeForAddPhotoInput.value = "";
-}
+} 
 
 function visiblePopupPhoto() {
   // обработчик увеличения фото
-  popupPhoto.classList.toggle("popup_visible");
+  openPopup(popupPhoto);
 
-  popupPhotoCloseButton.addEventListener("click", visiblePopupPhoto);
+  popupPhotoCloseButton.addEventListener("click", () => { closedPopup(popupPhoto); });
 }
-
-

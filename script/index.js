@@ -3,7 +3,7 @@ const popupProfile = document.querySelector(".popup_type_edit-profile");
 const form = popupProfile.querySelector(".form"); // Находим форму в DOM
 const buttonClosedPopup = popupProfile.querySelector(".popup__close-button"); // нажатие на закрытие формы редактирования
 const nameInput = form.querySelector(".form__input_type_name"); // Находим поля формы в DOM
-const jobInput = form.querySelector(".form__input_type_sign"); // Воспользуйтесь инструментом .querySelector()
+const signInput = form.querySelector(".form__input_type_sign"); // Воспользуйтесь инструментом .querySelector()
 
 const cardTemplate = document.querySelector(".template").content;
 
@@ -67,15 +67,15 @@ initialCards.forEach((place) => {
 function popupEditProfile() {
 
   nameInput.value = profileName.textContent;
-  jobInput.value = profileSign.textContent;
+  signInput.value = profileSign.textContent;
   openPopup(popupProfile);
 }
 
 function formSubmitHandler(evt) {
   evt.preventDefault(); //  отменяет стандартную отправку формы.
 
-  const newName = nameInput.value; // Получите значение полей jobInput и nameInput из свойства value
-  const newSign = jobInput.value;
+  const newName = nameInput.value; // Получите значение полей signInput и nameInput из свойства value
+  const newSign = signInput.value;
 
   profileName.textContent = newName; // Вставьте новые значения с помощью textContent
   profileSign.textContent = newSign;

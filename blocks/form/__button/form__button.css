@@ -8,6 +8,7 @@
   height: 50px;
   background-color: black;
   color: white;
+
 }
 
 .form__button:hover {
@@ -21,4 +22,11 @@
     width: 238px;
     height: 46px;
   }
+}
+
+.form__button_inactive{
+  border: 1px #000000 solid;
+  opacity: 0.2;
+  background-color: white;
+  color: #000000;
 }

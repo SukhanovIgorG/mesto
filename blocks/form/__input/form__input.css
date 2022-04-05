@@ -12,3 +12,7 @@
     height: 47px;
   }
 }
+
+.form__input_type_error {
+  border-bottom: 1px #FF0000 solid ;
+}

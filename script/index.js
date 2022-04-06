@@ -25,6 +25,7 @@ const popupPhotoTitle = popupPhoto.querySelector(".popup__photo-title");
 const popupPhotoCloseButton = popupPhoto.querySelector(
   ".popup__close-button_type_photo"
 );
+const popups = Array.from(document.querySelectorAll('.popup'));
 
 function cloneCardTemplate(place) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -55,13 +56,24 @@ initialCards.forEach((place) => {
     cardsList.append(newCard);
   });
 
-// открыть закрыть попап
+// ============= открыть попап ============= 
   function openPopup(popupElement) {
-    popupElement.classList.add("popup_visible")
-    
+    popupElement.classList.add("popup_visible");
+    popupElement.addEventListener('keydown', (evt) => {
+      if (evt.key === 'Escape') {
+        closedPopup(popupElement)
+      } 
+     })
   } 
+
+// ============= закрыть попап ============= 
   function closedPopup(popupElement) {
-    popupElement.classList.remove("popup_visible")
+    popupElement.classList.remove("popup_visible");
+    popupElement.removeEventListener('keydown', (evt) => {
+      if (evt.key === 'Escape') {
+        closedPopup(popupElement)
+      } 
+     })
   }
 
 function popupEditProfile() {
@@ -94,8 +106,9 @@ popupPhotoCloseButton.addEventListener("click", () => { closedPopup(popupPhoto);
 
 formPlace.addEventListener("submit", placeForAddSubmit);
 
+//============ функция добавления карточки ============
 function placeForAddSubmit(evt) {
-  // функция добавления карточки
+
   evt.preventDefault();
 
   const placeAdd = {};
@@ -104,13 +117,39 @@ function placeForAddSubmit(evt) {
   placeAdd['link'] = placeForAddPhotoInput.value;
   cardsList.prepend(cloneCardTemplate(placeAdd));
 
-  // поля заполнения формы очищаются
+//============ поля заполнения формы очищаются ============
   closedPopup(placeForAdd);
   placeForAddNameInput.value = "";
   placeForAddPhotoInput.value = "";
 } 
 
+//============ обработчик увеличения фото ============
 function visiblePopupPhoto() {
-  // обработчик увеличения фото
+
   openPopup(popupPhoto);
 }
+
+//============ установка слушателей нажатия Esc ============
+// function setKeyDownListener(array) {
+//   array.forEach((element) => {
+//     element.addEventListener('keydown', (evt) => {
+//       if (evt.key === 'Escape') {
+//         closedPopup(element)
+//       } 
+//      });
+//   })
+// };
+
+
+////============ установка слушателей клика на оверлей ============
+function setClickOverListener(array) {
+  array.forEach((element) => {
+    element.addEventListener('click', (evt) => {
+      if (evt.target === evt.currentTarget) {
+        closedPopup(element)
+      }
+     });
+  })
+};
+
+setClickOverListener(popups);

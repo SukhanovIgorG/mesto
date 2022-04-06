@@ -1,17 +1,19 @@
+//================ показать текст ошибки =====================
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add('form__input_type_error');
     errorElement.textContent = errorMessage;
     errorElement.classList.add('form__input-error_active');
   };
-  
+
+//================ скрыть текст ошибки =====================
   const hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove('form__input_type_error');
     errorElement.classList.remove('form__input-error_active');
     errorElement.textContent = '';
   };
-  
+//================ проверка формы на валидность =====================  
   const checkInputValidity = (formElement, inputElement) => {
     if (!inputElement.validity.valid) {
       showInputError(formElement, inputElement, inputElement.validationMessage);
@@ -19,7 +21,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
       hideInputError(formElement, inputElement);
     }
   };
-  
+//================ установить слушатели на инпуты =====================  
   const setEventListeners = (formElement) => {
     const inputList = Array.from(formElement.querySelectorAll('.form__input'));
     buttonElement = formElement.querySelector('.form__button')
@@ -32,7 +34,8 @@ const showInputError = (formElement, inputElement, errorMessage) => {
       });
     });
   };
-  
+
+//================ установить слушатели отправки на формы =====================
   function enableValidation() {
     const formList = Array.from(document.querySelectorAll('.form'));
     formList.forEach((formElement) => {
@@ -42,25 +45,30 @@ const showInputError = (formElement, inputElement, errorMessage) => {
     setEventListeners(formElement);
     });
   };
-  
+
+//================ вызов (включение валидации) =====================  
   enableValidation();
 
+//================показать текст ошибки=====================
   function hasInvalidInput (inputList) {
     return inputList.some((inputElement) => {
-      console.log(!inputElement.validity.valid);
         return !inputElement.validity.valid;
     })
   };
-
+//================ включение / отключеие кнопки отправки =====================
   function toggleButtonState (inputList, buttonElement) {
     if (!hasInvalidInput(inputList)) {
       buttonElement.classList.remove('form__button_inactive');
+      buttonElement.removeAttribute('disabled', true);
     } else if (hasInvalidInput(inputList)) {
       buttonElement.classList.add('form__button_inactive');
+      buttonElement.setAttribute('disabled', true);
   };
 };
 
 
+
+//================ способ неуниверсальный =====================
 
 // const forms = Array.from(document.querySelectorAll('.form'));
 

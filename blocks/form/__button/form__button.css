@@ -16,17 +16,17 @@
   cursor: pointer;
 }
 
+.form__button:disabled {
+  border: 1px #000000 solid;
+  opacity: 0.2;
+  background-color: white;
+  color: #000000;
+}
+
 @media screen and (max-width: 700px) {
   .form__button {
     margin: 30px 0 20px 0;
     width: 238px;
     height: 46px;
   }
-}
-
-.form__button_inactive{
-  border: 1px #000000 solid;
-  opacity: 0.2;
-  background-color: white;
-  color: #000000;
 }

@@ -47,13 +47,14 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 
 //================ вызов (включение валидации) =====================  
   enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button',
+  inactiveButtonClass: 'form__button:disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error'
 }); 
+
 //================показать текст ошибки=====================
   function hasInvalidInput (inputList) {
     return inputList.some((inputElement) => {

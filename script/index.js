@@ -1,9 +1,9 @@
 const buttonEditProfile = document.querySelector(".profile__edit-button"); // нажатие на редактирование профиля
 const popupProfile = document.querySelector(".popup_type_edit-profile");
-const form = popupProfile.querySelector(".form"); // Находим форму в DOM
-const buttonClosedPopup = popupProfile.querySelector(".popup__close-button"); // нажатие на закрытие формы редактирования
-const nameInput = form.querySelector(".form__input_type_name"); // Находим поля формы в DOM
-const signInput = form.querySelector(".form__input_type_sign"); // Воспользуйтесь инструментом .querySelector()
+const formProfile = popupProfile.querySelector(".form_type_edit-profile"); // Находим форму в DOM
+const buttonClosedPopupProfileProfile = popupProfile.querySelector(".popup__close-button"); // нажатие на закрытие формы редактирования
+const nameInput = formProfile.querySelector(".form__input_type_name"); // Находим поля формы в DOM
+const signInput = formProfile.querySelector(".form__input_type_sign"); // Воспользуйтесь инструментом .querySelector()
 
 const cardTemplate = document.querySelector(".template").content;
 
@@ -14,7 +14,7 @@ const profileSign = profile.querySelector(".profile__sign");
 const buttonAddPlace = document.querySelector(".profile__add-button");
 const placeForAdd = document.querySelector(".popup_type_new-place");
 const buttonClosedPlace = placeForAdd.querySelector(".popup__close-button");
-const cardsList = document.querySelector(".cards-list");
+const cardContainer = document.querySelector(".cards-list");
 const formPlace = placeForAdd.querySelector(".form_type_new-place");
 const placeForAddNameInput = formPlace.querySelector(".form__input_type_place");
 const placeForAddPhotoInput = formPlace.querySelector(".form__input_type_photo");
@@ -53,27 +53,19 @@ function cloneCardTemplate(place) {
 
 initialCards.forEach((place) => {
     newCard = cloneCardTemplate(place);
-    cardsList.append(newCard);
+    cardContainer.append(newCard);
   });
 
 // ============= открыть попап ============= 
   function openPopup(popupElement) {
     popupElement.classList.add("popup_visible");
-    popupElement.addEventListener('keydown', (evt) => {
-      if (evt.key === 'Escape') {
-        closedPopup(popupElement)
-      } 
-     })
+    const popupClosed = popupElement.addEventListener('keydown', closeByEsc);
   } 
 
 // ============= закрыть попап ============= 
   function closedPopup(popupElement) {
     popupElement.classList.remove("popup_visible");
-    popupElement.removeEventListener('keydown', (evt) => {
-      if (evt.key === 'Escape') {
-        closedPopup(popupElement)
-      } 
-     })
+    const popupClosed = popupElement.removeEventListener('keydown', closeByEsc);
   }
 
 function popupEditProfile() {
@@ -96,13 +88,13 @@ function formSubmitHandler(evt) {
 }
 
 buttonEditProfile.addEventListener("click", popupEditProfile);
-buttonClosedPopup.addEventListener("click", () => { closedPopup(popupProfile); });
-form.addEventListener("submit", formSubmitHandler); // он будет следить за событием “submit” - «отправка»
+buttonClosedPopupProfileProfile.addEventListener("click", () => { closedPopup(popupProfile); });
+formProfile.addEventListener("submit", formSubmitHandler); // он будет следить за событием “submit” - «отправка»
 
 buttonAddPlace.addEventListener("click", () => {openPopup(placeForAdd)});
 buttonClosedPlace.addEventListener("click", () => {closedPopup(placeForAdd)});
 
-popupPhotoCloseButton.addEventListener("click", () => { closedPopup(popupPhoto); })
+popupPhotoCloseButton.addEventListener("click", () => {closedPopup(popupPhoto); })
 
 formPlace.addEventListener("submit", placeForAddSubmit);
 
@@ -115,12 +107,18 @@ function placeForAddSubmit(evt) {
 
   placeAdd['name'] = placeForAddNameInput.value;
   placeAdd['link'] = placeForAddPhotoInput.value;
-  cardsList.prepend(cloneCardTemplate(placeAdd));
+  cardContainer.prepend(cloneCardTemplate(placeAdd));
 
 //============ поля заполнения формы очищаются ============
   closedPopup(placeForAdd);
   placeForAddNameInput.value = "";
   placeForAddPhotoInput.value = "";
+
+  const buttonElement = placeForAdd.querySelector('.form-place-button');
+  const inputList = Array.from(placeForAdd.querySelectorAll('.form__input'));
+  checkInputValidity(this, placeForAddNameInput);
+  checkInputValidity(this, placeForAddPhotoInput);
+  toggleButtonState(inputList, buttonElement);
 } 
 
 //============ обработчик увеличения фото ============
@@ -139,6 +137,14 @@ function visiblePopupPhoto() {
 //      });
 //   })
 // };
+
+function closeByEsc(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_visible');
+    console.log(openedPopup);
+    closedPopup(openedPopup); 
+  }
+}
 
 
 ////============ установка слушателей клика на оверлей ============

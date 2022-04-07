@@ -24,11 +24,10 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 //================ установить слушатели на инпуты =====================  
   const setEventListeners = (formElement) => {
     const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-    buttonElement = formElement.querySelector('.form__button')
+    const buttonElement = formElement.querySelector('.form__button')
     toggleButtonState(inputList, buttonElement);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
-        buttonElement = formElement.querySelector('.form__button')
         checkInputValidity(formElement, inputElement);
         toggleButtonState(inputList, buttonElement);
       });
@@ -47,8 +46,14 @@ const showInputError = (formElement, inputElement, errorMessage) => {
   };
 
 //================ вызов (включение валидации) =====================  
-  enableValidation();
-
+  enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}); 
 //================показать текст ошибки=====================
   function hasInvalidInput (inputList) {
     return inputList.some((inputElement) => {
@@ -58,10 +63,8 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 //================ включение / отключеие кнопки отправки =====================
   function toggleButtonState (inputList, buttonElement) {
     if (!hasInvalidInput(inputList)) {
-      buttonElement.classList.remove('form__button_inactive');
       buttonElement.removeAttribute('disabled', true);
     } else if (hasInvalidInput(inputList)) {
-      buttonElement.classList.add('form__button_inactive');
       buttonElement.setAttribute('disabled', true);
   };
 };

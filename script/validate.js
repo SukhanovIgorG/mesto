@@ -14,7 +14,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
     errorElement.textContent = '';
   };
 //================ проверка формы на валидность =====================  
-  const checkInputValidity = (formElement, inputElement) => {
+  const checkInputValidity = (formElement, inputElement, ...rest) => {
     if (!inputElement.validity.valid) {
       showInputError(formElement, inputElement, inputElement.validationMessage);
     } else {
@@ -22,9 +22,9 @@ const showInputError = (formElement, inputElement, errorMessage) => {
     }
   };
 //================ установить слушатели на инпуты =====================  
-  const setEventListeners = (formElement) => {
-    const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-    const buttonElement = formElement.querySelector('.form__button')
+  const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ...rest}) => {
+    const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+    const buttonElement = formElement.querySelector(submitButtonSelector)
     toggleButtonState(inputList, buttonElement);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
@@ -35,13 +35,13 @@ const showInputError = (formElement, inputElement, errorMessage) => {
   };
 
 //================ установить слушатели отправки на формы =====================
-  function enableValidation(obj) {
-    const formList = Array.from(document.querySelectorAll(obj.formSelector));
+  function enableValidation({ formSelector, ...rest }) {
+    const formList = Array.from(document.querySelectorAll(formSelector));
     formList.forEach((formElement) => {
       formElement.addEventListener('submit', (evt) => {
         evt.preventDefault();
       });
-    setEventListeners(formElement);
+    setEventListeners(formElement, rest);
     });
   };
 

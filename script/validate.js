@@ -1,24 +1,24 @@
 //================ показать текст ошибки =====================
-const showInputError = (formElement, inputElement, errorMessage) => {
+const showInputError = (formElement, inputElement, errorMessage, {inputErrorClass, errorClass}) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add('form__input_type_error');
+    inputElement.classList.add(inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add('form__input-error_active');
+    errorElement.classList.add(errorClass);
   };
 
 //================ скрыть текст ошибки =====================
-  const hideInputError = (formElement, inputElement) => {
+  const hideInputError = (formElement, inputElement, {inputErrorClass, errorClass}) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('form__input_type_error');
-    errorElement.classList.remove('form__input-error_active');
+    inputElement.classList.remove(inputErrorClass);
+    errorElement.classList.remove(errorClass);
     errorElement.textContent = '';
   };
 //================ проверка формы на валидность =====================  
   const checkInputValidity = (formElement, inputElement, ...rest) => {
     if (!inputElement.validity.valid) {
-      showInputError(formElement, inputElement, inputElement.validationMessage);
+      showInputError(formElement, inputElement, inputElement.validationMessage, rest);
     } else {
-      hideInputError(formElement, inputElement);
+      hideInputError(formElement, inputElement, rest);
     }
   };
 //================ установить слушатели на инпуты =====================  
@@ -28,7 +28,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
     toggleButtonState(inputList, buttonElement);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
-        checkInputValidity(formElement, inputElement);
+        checkInputValidity(formElement, inputElement, rest);
         toggleButtonState(inputList, buttonElement);
       });
     });
@@ -52,7 +52,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
   submitButtonSelector: '.form__button',
   inactiveButtonClass: 'form__button:disabled',
   inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error'
+  errorClass: 'form__input-error_active',
 }); 
 
 //================показать текст ошибки=====================

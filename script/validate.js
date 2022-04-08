@@ -35,8 +35,8 @@ const showInputError = (formElement, inputElement, errorMessage) => {
   };
 
 //================ установить слушатели отправки на формы =====================
-  function enableValidation() {
-    const formList = Array.from(document.querySelectorAll('.form'));
+  function enableValidation(obj) {
+    const formList = Array.from(document.querySelectorAll(obj.formSelector));
     formList.forEach((formElement) => {
       formElement.addEventListener('submit', (evt) => {
         evt.preventDefault();

@@ -59,13 +59,13 @@ initialCards.forEach((place) => {
 // ============= открыть попап ============= 
   function openPopup(popupElement) {
     popupElement.classList.add("popup_visible");
-    const popupClosed = popupElement.addEventListener('keydown', closeByEsc);
+    popupClosed = popupElement.addEventListener('keydown', closeByEsc);
   } 
 
 // ============= закрыть попап ============= 
   function closedPopup(popupElement) {
     popupElement.classList.remove("popup_visible");
-    const popupClosed = popupElement.removeEventListener('keydown', closeByEsc);
+    popupClosed = popupElement.removeEventListener('keydown', closeByEsc);
   }
 
 function popupEditProfile() {
@@ -116,8 +116,7 @@ function placeForAddSubmit(evt) {
 
   const buttonElement = placeForAdd.querySelector('.form-place-button');
   const inputList = Array.from(placeForAdd.querySelectorAll('.form__input'));
-  checkInputValidity(this, placeForAddNameInput);
-  checkInputValidity(this, placeForAddPhotoInput);
+
   toggleButtonState(inputList, buttonElement);
 } 
 

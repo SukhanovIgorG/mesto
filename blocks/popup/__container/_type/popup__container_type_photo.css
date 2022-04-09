@@ -1,4 +1,4 @@
 .popup__container_type_photo {
-  max-width: 75vmin;
-  max-height: 75vmin;
+  content: '';
+  position: relative;
 }

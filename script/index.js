@@ -59,13 +59,13 @@ initialCards.forEach((place) => {
 // ============= открыть попап ============= 
   function openPopup(popupElement) {
     popupElement.classList.add("popup_visible");
-    popupClosed = popupElement.addEventListener('keydown', closeByEsc);
+    popupElement.addEventListener('keydown', closeByEsc);
   } 
 
 // ============= закрыть попап ============= 
   function closedPopup(popupElement) {
     popupElement.classList.remove("popup_visible");
-    popupClosed = popupElement.removeEventListener('keydown', closeByEsc);
+    popupElement.removeEventListener('keydown', closeByEsc);
   }
 
 function popupEditProfile() {

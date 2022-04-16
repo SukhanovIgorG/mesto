@@ -1,95 +1,80 @@
-//================ показать текст ошибки =====================
-const showInputError = (formElement, inputElement, errorMessage, {inputErrorClass, errorClass}) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add(inputErrorClass);
-    errorElement.textContent = errorMessage;
-    errorElement.classList.add(errorClass);
-  };
+export class FormValidator {
+  constructor(obj, formSelector) {
+    (this._inputSelector = obj.inputSelector),
+      (this._submitButtonSelector = obj.submitButtonSelector),
+      (this._inactiveButtonClass = obj.inactiveButtonClass),
+      (this._inputErrorClass = obj.inputErrorClass),
+      (this._errorClass = obj.errorClass),
+      (this._formSelector = formSelector),
+      (this._formElement = document.querySelector(formSelector));
+    this._inputList = Array.from(
+      this._formElement.querySelectorAll(obj.inputSelector)
+    );
+    this._buttonElement = this._formElement.querySelector(
+      obj.submitButtonSelector
+    );
+  }
 
-//================ скрыть текст ошибки =====================
-  const hideInputError = (formElement, inputElement, {inputErrorClass, errorClass}) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(inputErrorClass);
-    errorElement.classList.remove(errorClass);
-    errorElement.textContent = '';
-  };
-//================ проверка формы на валидность =====================  
-  const checkInputValidity = (formElement, inputElement, ...rest) => {
-    if (!inputElement.validity.valid) {
-      showInputError(formElement, inputElement, inputElement.validationMessage, rest);
-    } else {
-      hideInputError(formElement, inputElement, rest);
+  enableValidation() {
+    this._setListenerSabmit();
+  }
+
+  _setListenerSabmit() {
+    this._formElement.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+    });
+    this._setInputListeners();
+  }
+
+  _setInputListeners() {
+    this._toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+      inputElement.addEventListener("input", () => {
+        this._checkInputValidity(inputElement);
+        this._toggleButtonState();
+      });
+    });
+  }
+
+  _toggleButtonState() {
+    if (!this._hasInvalidInput(this._inputList)) {
+      this._buttonElement.removeAttribute("disabled", true);
+    } else if (this._hasInvalidInput()) {
+      this._buttonElement.setAttribute("disabled", true);
     }
-  };
-//================ установить слушатели на инпуты =====================  
-  const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ...rest}) => {
-    const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-    const buttonElement = formElement.querySelector(submitButtonSelector)
-    toggleButtonState(inputList, buttonElement);
-    inputList.forEach((inputElement) => {
-      inputElement.addEventListener('input', function () {
-        checkInputValidity(formElement, inputElement, rest);
-        toggleButtonState(inputList, buttonElement);
-      });
+  }
+
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
+      return !inputElement.validity.valid;
     });
-  };
+  }
 
-//================ установить слушатели отправки на формы =====================
-  function enableValidation({ formSelector, ...rest }) {
-    const formList = Array.from(document.querySelectorAll(formSelector));
-    formList.forEach((formElement) => {
-      formElement.addEventListener('submit', (evt) => {
-        evt.preventDefault();
-      });
-    setEventListeners(formElement, rest);
-    });
-  };
+  _checkInputValidity(inputElement) {
+    if (!inputElement.validity.valid) {
+      this._showInputError(inputElement);
+    } else {
+      this._hideInputError(inputElement);
+    }
+  }
 
-//================ вызов (включение валидации) =====================  
-  enableValidation({
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__button',
-  inactiveButtonClass: 'form__button:disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active',
-}); 
+  _showInputError(inputElement) {
+    const errorElement = this._formElement.querySelector(
+      `.${inputElement.id}-error`
+    );
+    inputElement.classList.add(this._inputErrorClass);
+    errorElement.textContent = inputElement.validationMessage;
+    errorElement.classList.add(this._errorClass);
+  }
 
-//================показать текст ошибки=====================
-  function hasInvalidInput (inputList) {
-    return inputList.some((inputElement) => {
-        return !inputElement.validity.valid;
-    })
-  };
-//================ включение / отключеие кнопки отправки =====================
-  function toggleButtonState (inputList, buttonElement) {
-    if (!hasInvalidInput(inputList)) {
-      buttonElement.removeAttribute('disabled', true);
-    } else if (hasInvalidInput(inputList)) {
-      buttonElement.setAttribute('disabled', true);
-  };
-};
-
-
-
-//================ способ неуниверсальный =====================
-
-// const forms = Array.from(document.querySelectorAll('.form'));
-
-
-// forms.forEach((form) => {
-//   const inputs = Array.from(form.querySelectorAll('.form__input'));
-//   inputs.forEach((input) => {
-//     const button = form.querySelector(`.${form.id}-button`);
-
-//     input.addEventListener('input', (evt) => {
-//       const error = form.querySelector(`.${input.id}-error`);
-//       error.textContent = input.validationMessage;
-//       if (!input.validity.valid) {
-//         button.classList.add('form__button_inactive')
-//       } else {
-//         button.classList.remove('form__button_inactive')
-//       }
-//     })
-//   })
-// })
+  //================ скрыть текст ошибки =====================
+  _hideInputError(inputElement) {
+    const errorElement = this._formElement.querySelector(
+      `.${inputElement.id}-error`
+    );
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.classList.remove(this._errorClass);
+    errorElement.textContent = "";
+  }
+}

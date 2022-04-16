@@ -6,7 +6,7 @@ import { openPopup } from "./utils.js";
 import { closedPopup } from "./utils.js";
 import { setClickOverListener } from "./utils.js";
 
-import { FormValidator } from "./validate.js";
+import { FormValidator } from "./FormValidator.js";
 
 const buttonEditProfile = document.querySelector(".profile__edit-button"); // нажатие на редактирование профиля
 const popupProfile = document.querySelector(".popup_type_edit-profile");
@@ -32,7 +32,7 @@ const popupPhotoCloseButton = popupPhoto.querySelector(
   ".popup__close-button_type_photo"
 );
 const popups = Array.from(document.querySelectorAll(".popup"));
-const cardContainer = document.querySelector(".cards-list");
+// const cardContainer = document.querySelector(".cards-list");
 
 initialCards.forEach((place) => {
   const card = new Card(place, ".template");
@@ -93,10 +93,10 @@ function placeForAddSubmit(evt) {
   placeForAddNameInput.value = ""; //поля заполнения формы очищаются
   placeForAddPhotoInput.value = ""; //поля заполнения формы очищаются
 
-  const buttonElement = placeForAdd.querySelector(".form-place-button");
-  const inputList = Array.from(placeForAdd.querySelectorAll(".form__input"));
+  // const buttonElement = placeForAdd.querySelector(".form-place-button");
+  // const inputList = Array.from(placeForAdd.querySelectorAll(".form__input"));
 
-  toggleButtonState(inputList, buttonElement);
+  validationNewPlace.enableValidation();
 }
 
 setClickOverListener(popups);

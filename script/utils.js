@@ -1,6 +1,6 @@
 export function openPopup(popupElement) {
     popupElement.classList.add("popup_visible");
-    popupElement.addEventListener('keydown', closeByEsc);
+    document.addEventListener('keydown', closeByEsc);
   } 
 
 export function closedPopup(popupElement) {

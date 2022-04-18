@@ -19,6 +19,11 @@ export class FormValidator {
     this._setListenerSabmit();
   }
 
+  resetValidation() {
+    this._formElement.reset();
+    this._buttonElement.setAttribute("disabled", true);
+  }
+
   _setListenerSabmit() {
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();

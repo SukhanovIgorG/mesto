@@ -26,16 +26,17 @@ export class Card {
   }
 
   _setListeners() {
-    this._trashButton = this._element.querySelector(".card__trash");
+    const trash = this._element.querySelector(".card__trash");
     this._likeButton = this._element.querySelector(".card__like");
+    const image = this._element.querySelector(".card__image");
 
-    this._trashButton.addEventListener("click", () => {
+    trash.addEventListener("click", () => {
       this._handleDeliteCard();
     });
     this._likeButton.addEventListener("click", () => {
       this._handleLikeCard();
     });
-    this._cardImage.addEventListener("click", () => {
+    image.addEventListener("click", () => {
       this._handleZoomImage(this._name, this._link);
     });
   }

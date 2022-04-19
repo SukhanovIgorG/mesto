@@ -55,6 +55,7 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = newName; // Вставьте новые значения с помощью textContent
   profileSign.textContent = newSign;
   closePopup(popupProfile); // закрываем попап при нажатии на сохранить
+  formValidators[ formProfile.getAttribute('name') ].resetValidation()
 }
 
 buttonEditProfile.addEventListener("click", openProfilePopup);
@@ -74,7 +75,8 @@ function handleSubmitNewPlace(evt) {
   const cardElement = createCard(place);
   cardContainer.prepend(cardElement);
   closePopup(popupNewPlace);
-  validationNewPlace.resetValidation();
+  formValidators[ formPlace.getAttribute('name') ].resetValidation()
+  // validationNewPlace.resetValidation();
 }
 
 popups.forEach((popup) => {
@@ -89,19 +91,19 @@ popups.forEach((popup) => {
 });
 
 // ======= создание новых классов валидации и вызов ========
-const validationNewPlace = new FormValidator(
-  validationParams,
-  ".form_type_new-place"
-);
+// const validationNewPlace = new FormValidator(
+//   validationParams,
+//   ".form_type_new-place"
+// );
 
-validationNewPlace.enableValidation();
+// validationNewPlace.enableValidation();
 
-const validationEditProfile = new FormValidator(
-  validationParams,
-  ".form_type_edit-profile"
-);
+// const validationEditProfile = new FormValidator(
+//   validationParams,
+//   ".form_type_edit-profile"
+// );
 
-validationEditProfile.enableValidation();
+// validationEditProfile.enableValidation();
 
 function handleZoomImage(name, link) {
   popupPotoImage.src = link;
@@ -109,3 +111,24 @@ function handleZoomImage(name, link) {
   popupPhotoTitle.textContent = name;
   openPopup(popupPhoto);
 }
+
+// ======= создание новых классов валидации и вызов ========
+const formValidators = {}
+
+// Включение валидации
+const enableValidation = (config) => {
+  console.log(document.querySelectorAll(config.formSelector))
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    console.log(Array.from(formElement.classList)[1])
+    const validator = new FormValidator(config, `.${formElement.getAttribute('name')}`)
+// получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+
+   // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
+
+enableValidation(validationParams);

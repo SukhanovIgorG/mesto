@@ -130,3 +130,5 @@ const enableValidation = (config) => {
 };
 
 enableValidation(validationParams);
+
+console.log('Hello, World!') 

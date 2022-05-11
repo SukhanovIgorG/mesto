@@ -1,5 +1,3 @@
-// import { toNamespacedPath } from "path/posix";
-
 export class UserInfo {
   constructor( {userName, userSign} ) {
     this._userName = userName;
@@ -9,9 +7,7 @@ export class UserInfo {
   }
 
   getUserInfo() {
-    const user = {};
-    user[0] = this._nameSelector.textContent;
-    user[1] = this._signSelector.textContent;
+    const user = {name:this._nameSelector.textContent, sign:this._signSelector.textContent};
       return user;
   };
 

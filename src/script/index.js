@@ -1,14 +1,13 @@
-import './index.css';
+import '../../page/index.css';
 
-import { validationParams } from "../script/constants.js";
-import { Card } from "../script/components/Card.js";
-import { Popup } from "../script/components/Popup.js";
-import { PopupWithImage } from '../script/components/PopupWithImage.js';
-import { PopupWithForm } from '../script/components/PopupWithForm.js';
-import { Section } from "../script/components/Section.js";
-import { initialCards } from "../script/initial-cards.js";
-import { FormValidator } from "../script/components/FormValidator.js";
-import { UserInfo } from "../script/components/UserInfo.js";
+import { Card } from "./Card.js";
+import { Popup } from "./Popup.js";
+import { PopupWithImage } from './PopupWithImage.js';
+import { PopupWithForm } from './PopupWithForm.js';
+import { Section } from "./Section.js";
+import { initialCards } from "./initial-cards.js";
+import { FormValidator } from "./FormValidator.js";
+import { UserInfo } from "./UserInfo.js";
 
 const buttonEditProfile = document.querySelector(".profile__edit-button"); // нажатие на редактирование профиля
 const popupProfile = document.querySelector(".popup_type_edit-profile");
@@ -24,15 +23,19 @@ const formPlace = popupNewPlace.querySelector(".form_type_new-place");
 const formPlaceNameInput = formPlace.querySelector(".form__input_type_place");
 const formPlacePhotoInput = formPlace.querySelector(".form__input_type_photo");
 const cardContainer = document.querySelector(".cards-list");
-
-function generateCard(item) {
-  const card = new Card(item, ".template", handleZoomImage);
-  const cardElement = card.generateCard();
-    return cardElement;
-}
+const validationParams = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__button",
+  inactiveButtonClass: "form__button:disabled",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active",
+};
 
 const cardList = new Section({ items: initialCards, renderer: (item) => {
-  cardList.addItem(generateCard(item));
+  const card = new Card(item, ".template", handleZoomImage);
+  const cardElement = card.generateCard();
+  cardList.addItem(cardElement);
 } }, cardContainer);
 
 cardList._renderItem();
@@ -40,8 +43,8 @@ cardList._renderItem();
 function openProfilePopup() {
   const user = new UserInfo ( {name:profileName.textContent, sign:profileSign.textContent} )
   const userInfo = user.getUserInfo();
-  formProfileNameInput.value = userInfo.name;
-  formProfileSignInput.value = userInfo.sign;
+  formProfileNameInput.value = userInfo[0];
+  formProfileSignInput.value = userInfo[1];
   const popup = new Popup('.popup_type_edit-profile');
   popup.open();
 }
@@ -62,20 +65,33 @@ formProfile.addEventListener("submit", handleProfileFormSubmit); // он буд�
 buttonAddPlace.addEventListener("click", () => {
   const popup = new PopupWithForm(".popup_type_new-place", handleSubmitNewPlace);
   popup.open();
+  // popup.setEventListeners();
 });
 
+// formPlace.addEventListener("submit", handleSubmitNewPlace);
 
 //============ функция добавления карточки ============
-function handleSubmitNewPlace(place) {
-  cardList.addItemBefore(generateCard(place));
-  this.close();
+function handleSubmitNewPlace(evt) {
+  console.log('событие обработчик отправки нового места');
+  evt.preventDefault();
+  const place = {};
+  place["name"] = formPlaceNameInput.value;
+  place["link"] = formPlacePhotoInput.value;
+  console.log(place);
+  // const cardElement = createCard(place);
+  const card = new Card(place, ".template", handleZoomImage);
+  const cardElement = card.generateCard();
+  cardList.addItemBefore(cardElement);
+  const popup = new PopupWithForm(".popup_type_new-place");
+  popup.close();
   formValidators[ formPlace.getAttribute('name') ].resetValidation()
+  // validationNewPlace.resetValidation();
 }
 
 function handleZoomImage(name, link) {
-  // const place = {name, link};
-  const popup = new PopupWithImage(".popup_type_photo");
-  popup.open(name, link);
+  const place = {name, link};
+  const popup = new PopupWithImage(place, ".popup_type_photo");
+  popup.open();
 }
 
 // ======= создание новых классов валидации и вызов ========

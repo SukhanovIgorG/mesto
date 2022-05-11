@@ -41,7 +41,8 @@ export class Card {
   }
 
   _handleDeliteCard() {
-    this._element.closest(".card").remove();
+    this._element.remove();
+    this._element = null;
   }
 
   _handleLikeCard() {

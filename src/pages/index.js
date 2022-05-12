@@ -2,7 +2,6 @@ import './index.css';
 
 import { validationParams } from "../script/constants.js";
 import { Card } from "../script/components/Card.js";
-import { Popup } from "../script/components/Popup.js";
 import { PopupWithImage } from '../script/components/PopupWithImage.js';
 import { PopupWithForm } from '../script/components/PopupWithForm.js';
 import { Section } from "../script/components/Section.js";
@@ -15,15 +14,17 @@ const popupProfile = document.querySelector(".popup_type_edit-profile");
 const formProfile = popupProfile.querySelector(".form_type_edit-profile"); // Находим форму в DOM
 const formProfileNameInput = formProfile.querySelector(".form__input_type_name"); // Находим поля формы в DOM
 const formProfileSignInput = formProfile.querySelector(".form__input_type_sign"); // Воспользуйтесь инструментом .querySelector()
-const profile = document.querySelector(".profile");
-const profileName = profile.querySelector(".profile__name"); // Выберите элементы, куда должны быть вставлены значения полей
-const profileSign = profile.querySelector(".profile__sign");
 const buttonAddPlace = document.querySelector(".profile__add-button");
 const popupNewPlace = document.querySelector(".popup_type_new-place");
 const formPlace = popupNewPlace.querySelector(".form_type_new-place");
-const formPlaceNameInput = formPlace.querySelector(".form__input_type_place");
-const formPlacePhotoInput = formPlace.querySelector(".form__input_type_photo");
-const cardContainer = document.querySelector(".cards-list");
+const classUserInfo = new UserInfo ( {nameSelector:'.profile__name', signSelector:'.profile__sign'} );
+const classPopupWithImage = new PopupWithImage(".popup_type_photo");
+  classPopupWithImage.setEventListeners();
+const classPopupWithFormPlace = new PopupWithForm(".popup_type_new-place", handleSubmitNewPlace);
+  classPopupWithFormPlace.setEventListeners();
+const classPopupWithFormUser = new PopupWithForm('.popup_type_edit-profile', handleProfileFormSubmit);
+  classPopupWithFormUser.setEventListeners();
+
 
 function generateCard(item) {
   const card = new Card(item, ".template", handleZoomImage);
@@ -33,35 +34,27 @@ function generateCard(item) {
 
 const cardList = new Section({ items: initialCards, renderer: (item) => {
   cardList.addItem(generateCard(item));
-} }, cardContainer);
+} }, ".cards-list" );
 
-cardList._renderItem();
+cardList.renderItems();
 
 function openProfilePopup() {
-  const user = new UserInfo ( {name:profileName.textContent, sign:profileSign.textContent} )
-  const userInfo = user.getUserInfo();
+  const userInfo = classUserInfo.getUserInfo();
   formProfileNameInput.value = userInfo.name;
   formProfileSignInput.value = userInfo.sign;
-  const popup = new Popup('.popup_type_edit-profile');
-  popup.open();
+  classPopupWithFormUser.open();
 }
 
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault(); //  отменяет стандартную отправку формы.
-  const newName = formProfileNameInput.value; // Получите значение полей signInput и formProfileNameInput из свойства value
-  const newSign = formProfileSignInput.value;
-  const newUserInfo = new UserInfo ( {userName: newName, userSign: newSign} );
-  newUserInfo.setUserInfo();
-  const popup = new Popup(".popup_type_edit-profile");
-  popup.close(); // закрываем попап при нажатии на сохранить
+
+function handleProfileFormSubmit(data) {
+  classUserInfo.setUserInfo({name: data.name, sign: data.sign});
+  this.close(); // закрываем попап при нажатии на сохранить
   formValidators[ formProfile.getAttribute('name') ].resetValidation()
 }
 
 buttonEditProfile.addEventListener("click", openProfilePopup);
-formProfile.addEventListener("submit", handleProfileFormSubmit); // он будет следить за событием “submit” - «отправка»
 buttonAddPlace.addEventListener("click", () => {
-  const popup = new PopupWithForm(".popup_type_new-place", handleSubmitNewPlace);
-  popup.open();
+classPopupWithFormPlace.open();
 });
 
 
@@ -73,9 +66,8 @@ function handleSubmitNewPlace(place) {
 }
 
 function handleZoomImage(name, link) {
-  // const place = {name, link};
-  const popup = new PopupWithImage(".popup_type_photo");
-  popup.open(name, link);
+  classPopupWithImage.open(name, link);
+
 }
 
 // ======= создание новых классов валидации и вызов ========

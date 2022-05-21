@@ -13,11 +13,22 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img
+        <div class="profile__avatar-contein">
+          <div class="profile__avatar-edit">
+            <img
+            class="profile__avatar-edit-button"
+            src="<%=require('./image/icon/edit-avatar.svg')%>"
+            alt="кнопка редактирования аватара"
+            />
+          </div>
+
+          <!-- <img
           class="profile__avatar"
-          src="<%=require('./image/avatar.jpg')%>"
+          src=''
           alt="Аватар пользователя"
-        />
+          /> -->
+        </div>
+        
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button"></button>
@@ -68,6 +79,33 @@
       </div>
     </div>
 
+    <!-- начало попап обновить аватар  -->
+
+    <div class="popup popup_type_edit-avatar" id="popup_type_edit-avatar">
+      <div class="popup__container popup__container_type_dialog">
+        <h2 class="popup__header">Обновить аватар</h2>
+        <form class="form form_type_edit-avatar" id="form_type_edit-avatar" name="form_type_edit-avatar" action="/apply/" method="POST" novalidate>
+          <input
+            class="form__input form__input_type_avatar"
+            id="avatar-input"
+            type="url"
+            name="avatar"
+            placeholder="Введите ссылку"
+            minlength="2"
+            maxlength="100"
+            required
+            autofocus
+          />
+          <span class="form__input-error avatar-input-error"></span>
+
+          <button class="form__button form-profile-button" type="submit">Сохранить</button>
+        </form>
+        <button class="popup__close-button form-profile" type="button"></button>
+      </div>
+    </div>
+
+    <!-- конец попап обновить аватар  -->
+
     <div class="popup popup_type_new-place" id="popup_type_new-place">
       <div class="popup__container popup__container_type_dialog">
         <h2 class="popup__header">Новое место</h2>
@@ -106,13 +144,34 @@
       </div>
     </div>
 
+    <div class="popup popup_type_confirm-trash" id="popup_type_confirm-trash">
+      <div class="popup__container popup__container_type_dialog">
+        <h2 class="popup__header">Вы уверены ?</h2>
+          <form
+          class="form form_type_confirm-trash"
+          id="form_type_trash"
+          name="form_type_confirm-trash"
+          action="/apply/"
+          method="POST"
+          novalidate
+        >
+          <button class="form__button form-confirm-trash-button" type="submit">да</button>
+        </form>
+        <button class="popup__close-button" type="button"></button>
+      </div>
+    </div>
+
     <template class="template">
       <li class="card">
         <img class="card__image" src="#" alt="название" />
         <button class="card__trash" type="button"></button>
         <div class="card__info">
           <h2 class="card__title">Название</h2>
-          <button class="card__like" type="button"></button>
+          <div class="card__like-container">
+            <button class="card__like" type="button"></button>
+            <p class="card__like-counter">0</p>
+          </div>
+          
         </div>
       </li>
     </template>
@@ -125,9 +184,5 @@
       </div>
     </div>
 
-    <!-- <script type="module" src="./script/utils.js"></script>
-    <script type="module" src="./script/index.js"></script>
-    <script  type="module" src="./script/FormValidator.js"></script>
-    <script  type="module" src="./script/initial-cards.js"></script> -->
   </body>
 </html>

@@ -1,13 +1,12 @@
 import { Popup } from "./Popup.js";
 
-export class PopupWithForm extends Popup {
+export class PopupWithConfirmTrash extends Popup {
   constructor(popupSelector, submitForm) {
     super(popupSelector), (this._popup = document.querySelector(popupSelector));
     this._submitForm = submitForm;
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
     this._form = this._popup.querySelector('.form');
     this._inputList = Array.from(this._form.querySelectorAll('.form__input'));
-    console.log(`class PPPWF ${popupSelector}`)
   }
 
   _formSubmitHandler(evt) {

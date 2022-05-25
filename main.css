@@ -9,7 +9,7 @@
 .card__title{-webkit-margin-before:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-margin-end:0;display:block;font-size:24px;font-style:normal;font-weight:900;line-height:29px;margin-block-end:0;margin-block-start:0;margin-bottom:31px;margin-inline-end:0;margin-inline-start:0;margin-left:21px;margin-top:25px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .card__trash{align-self:center;background-color:transparent;background-image:url(823b0cf1b0b7e9cb7cad.svg);background-position:50%;background-repeat:no-repeat;background-size:18px;border:0;height:19px;margin:0;padding:0;position:relative;right:-243px;top:-265px;width:18px}.card__trash:hover{cursor:pointer;opacity:60%}
 .card__like-counter{color:#000;font-size:13px;font-style:normal;font-weight:400;line-height:16px;margin:0;padding:0;text-align:center};
-.card__like-cont{align-content:center;align-self:center;display:flex;flex-direction:column;padding-right:10px}
+.card__like-contain{align-content:center;align-self:center;display:flex;flex-direction:column;padding-right:10px}
 .cards-list{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,282px);grid-template-rows:auto;justify-content:space-around;list-style-type:none;margin:0;padding:0;row-gap:20px}
 .footer{align-items:center;display:flex;justify-content:space-between;margin:0 auto;max-width:880px}
 .footer__copyright{color:#545454;font-size:18px;font-style:normal;font-weight:400;line-height:22px;margin-bottom:60px;margin-top:67px}@media screen and (max-width:calc(897px + 19px*2)){.footer__copyright{margin-left:19px}}@media screen and (max-width:700px){.footer__copyright{font-size:14px;line-height:17px;margin-bottom:36px;margin-top:48px;text-align:left}}

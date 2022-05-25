@@ -20,17 +20,29 @@ export class UserInfo {
     this._userName.textContent = name;
     this._userSign.textContent = sign;
   };
-
-  getUserAvatar() {
-    const user = {avatar:this._userAvatar.style.backgroundImage};
-      return user;
-  };
-
-  // https://i.pinimg.com/originals/62/8f/49/628f49798bba23a996bbb0fe8aad174e.jpg
+    // https://i.pinimg.com/originals/62/8f/49/628f49798bba23a996bbb0fe8aad174e.jpg
 
   setUserAvatar( {avatar} ) {
     console.log(avatar);
     this._userAvatar.style.backgroundImage = `url(${avatar})`;
   };
+
+  getUserAvatar() {
+    const user = {avatar:this._userAvatar.style.backgroundImage};
+      return user;
+  };
+  setUserId(id) {
+    this._userId = id;
+  }
+  returnUserId() {
+      return this._userId;
+  }
+  // returnUserInfo() {
+  //   const user = {};
+  //   user['name'] = this._userName.textContent;
+  //   user['about'] = this._userSign.textContent;
+  //   user['avatar'] = this._userAvatar.style.backgroundImage.url;
+  //     return user
+// }
   
-};
+}

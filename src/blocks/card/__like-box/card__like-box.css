@@ -1,10 +1,9 @@
-.card__like-container {
+.card__like-box { 
   display: flex;
   flex-direction: column;
   align-content: center;
 
   padding-right: 10px;
-  padding-top: 10px;
 
   align-self: center;
 }

@@ -70,6 +70,7 @@ api.getInitialCards().then((result) => {
   cardList.renderItems(result);
 });
 
+
 function generateCard(item) {
   const card = new Card(
     item,
@@ -81,12 +82,18 @@ function generateCard(item) {
       addLike: (id) => {
         api
           .addLike(id)
-          .then((res) => card.changeLikesCounter(res.likes.length));
+          .then((res) => {
+            card.changeLikesCounter(res.likes.length);
+            card._likeButton.classList.add("card__like_active");
+          });
       },
       removeLike: (id) => {
         api
           .removeLike(id)
-          .then((res) => card.changeLikesCounter(res.likes.length));
+          .then((res) => {
+            card.changeLikesCounter(res.likes.length);
+            card._likeButton.classList.remove("card__like_active");
+          });
       },
       trash: (id, element) => {
         classPopupWithConfirmTrash.open(id, element);
@@ -99,7 +106,6 @@ function generateCard(item) {
 }
 
 function hendleTrashCard(id, element) {
-  console.log(`Удалил карточку вот с этим айдишником ${id}`);
   api
     .trashCard(id)
     .then(() => {
@@ -131,12 +137,14 @@ function handleProfileFormSubmit(data) {
     .postUserInfo(data.name, data.sign)
     .then((result) => {
       classUserInfo.setUserInfo({ name: result.name, sign: result.about });
-      renderLoading(".popup_type_edit-profile", false);
     })
     .catch((err) => {
       console.log(`ошибка обращения к api.postUserInfo ${err}`);
-    });
-  this.close(); // закрываем попап при нажатии на сохранить
+    })
+    .finally(()=> {
+      renderLoading(".popup_type_edit-profile", false);
+      classPopupWithFormUser.close();
+    }) // закрываем попап при нажатии на сохранить})
   formValidators[formProfile.getAttribute("name")].resetValidation();
 }
 // Обновление аватара
@@ -146,13 +154,15 @@ function handleProfileAvatarSubmit(data) {
     .postUserAvatar(data.avatar)
     .then((result) => {
       classUserInfo.setUserAvatar({ avatar: result.avatar });
-      renderLoading(".popup_type_edit-avatar", false);
     })
     .catch((err) => {
       console.log(`ошибка обращения к api.postUserAvatar ${err}`);
-    });
-
-  this.close(); // закрываем попап при нажатии на сохранить
+    })
+    .finally(() => {
+      renderLoading(".popup_type_edit-avatar", false);
+      classPopupWithFormAvatar.close(); // закрываем попап при нажатии на сохранить
+    })
+    ;
   formValidators[formAvatar.getAttribute("name")].resetValidation();
 }
 
@@ -187,7 +197,7 @@ function handleSubmitNewPlace(place) {
     .catch((err) => {
       console.log(`ошибка обращения к api.postNewCard ${err}`);
     });
-  this.close();
+  classPopupWithFormPlace.close();
   formValidators[formPlace.getAttribute("name")].resetValidation();
 }
 // увеличить фото

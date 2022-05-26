@@ -23,7 +23,6 @@ export class UserInfo {
     // https://i.pinimg.com/originals/62/8f/49/628f49798bba23a996bbb0fe8aad174e.jpg
 
   setUserAvatar( {avatar} ) {
-    console.log(avatar);
     this._userAvatar.style.backgroundImage = `url(${avatar})`;
   };
 

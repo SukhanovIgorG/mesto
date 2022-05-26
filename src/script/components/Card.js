@@ -32,7 +32,7 @@ export class Card {
         this._likeButton.classList.add("card__like_active");
       }
     });
-    this._element.querySelector(".card__like-counter").textContent =
+    this._likeCounter.textContent =
       this._likes.length;
     this._element.querySelector(".card__title").textContent = this._name;
     this._cardImage.src = this._link;
@@ -45,6 +45,7 @@ export class Card {
   _setListeners() {
     this._trashButton = this._element.querySelector(".card__trash");
     this._likeButton = this._element.querySelector(".card__like");
+    this._likeCounter = this._element.querySelector(".card__like-counter");
 
     this._trashButton.addEventListener("click", () => {
       this._handleTrashCard(this._id, this._element);
@@ -65,15 +66,13 @@ export class Card {
 
   _checkLikeButton(evt) {
     if (!evt.target.classList.contains("card__like_active")) {
-      this._likeButton.classList.add("card__like_active");
       this._addLike(this._id);
     } else {
-      this._likeButton.classList.remove("card__like_active");
       this._removeLike(this._id);
     }
   }
 
   changeLikesCounter(counter) {
-    this._element.querySelector(".card__like-counter").textContent = counter;
+    this._likeCounter.textContent = counter;
   }
 }

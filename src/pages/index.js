@@ -21,9 +21,6 @@ const formProfileSignInput = formProfile.querySelector(
   ".form__input_type_sign"
 );
 const formAvatar = document.querySelector(".form_type_edit-avatar");
-const formAvatarLinkInput = formAvatar.querySelector(
-  ".form__input_type_avatar"
-);
 const buttonAddPlace = document.querySelector(".profile__add-button");
 const popupNewPlace = document.querySelector(".popup_type_new-place");
 const formPlace = popupNewPlace.querySelector(".form_type_new-place");
@@ -53,6 +50,7 @@ const classPopupWithConfirmTrash = new PopupWithConfirmTrash(
   ".popup_type_confirm-trash",
   hendleTrashCard
 );
+classPopupWithConfirmTrash.setEventListeners();
 
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-41",
@@ -66,11 +64,6 @@ const cardList = new Section((item) => {
   cardList.addItem(generateCard(item));
 }, ".cards-list");
 
-api.getInitialCards().then((result) => {
-  cardList.renderItems(result);
-});
-
-
 function generateCard(item) {
   const card = new Card(
     item,
@@ -78,25 +71,29 @@ function generateCard(item) {
     classUserInfo.getUserInfo(),
     ".template",
     {
-      zoom: handleZoomImage,
-      addLike: (id) => {
+      zoom: () => {
+        classPopupWithImage.open(card.name, card.link);
+      },
+      addLike: () => {
         api
-          .addLike(id)
+          .addLike(card.id)
           .then((res) => {
             card.changeLikesCounter(res.likes.length);
-            card._likeButton.classList.add("card__like_active");
-          });
+            card.addLikeActive();
+          })
+          .catch((err) => console.log(`ошибка добавления лайка ${err}`));
       },
-      removeLike: (id) => {
+      removeLike: () => {
         api
-          .removeLike(id)
+          .removeLike(card.id)
           .then((res) => {
             card.changeLikesCounter(res.likes.length);
-            card._likeButton.classList.remove("card__like_active");
-          });
+            card.removeLikeActive();
+          })
+          .catch((err) => console.log(`ошибка удаления лайка ${err}`));
       },
-      trash: (id, element) => {
-        classPopupWithConfirmTrash.open(id, element);
+      trash: () => {
+        classPopupWithConfirmTrash.open(card.id, card.element);
       },
     }
   );
@@ -109,6 +106,7 @@ function hendleTrashCard(id, element) {
   api
     .trashCard(id)
     .then(() => {
+      classPopupWithConfirmTrash.close();
       element.remove();
       element = null;
     })
@@ -117,18 +115,22 @@ function hendleTrashCard(id, element) {
     });
 }
 
-api
-  .loadUserInfo()
-  .then((result) => {
-    classUserInfo.loadUserInfo({
-      name: result.name,
-      sign: result.about,
-      avatar: result.avatar,
+Promise.all([api.loadUserInfo(), api.getInitialCards()])
+  // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
+  .then(([userData, cards]) => {
+    // тут установка данных пользователя
+    classUserInfo.setUserInfo({
+      name: userData.name,
+      sign: userData.about,
     });
-    classUserInfo.setUserId(result._id);
+    classUserInfo.setUserAvatar({
+      avatar: userData.avatar,
+    });
+    classUserInfo.setUserId(userData._id);
+    cardList.renderItems(cards);
   })
   .catch((err) => {
-    console.log(`ошибка обращения к api.loadUserInfo ${err}`);
+    console.log(`ошибка загрузки стартовых данных ${err}`);
   });
 
 function handleProfileFormSubmit(data) {
@@ -137,15 +139,15 @@ function handleProfileFormSubmit(data) {
     .postUserInfo(data.name, data.sign)
     .then((result) => {
       classUserInfo.setUserInfo({ name: result.name, sign: result.about });
+      classPopupWithFormUser.close();
     })
     .catch((err) => {
       console.log(`ошибка обращения к api.postUserInfo ${err}`);
     })
-    .finally(()=> {
+    .finally(() => {
       renderLoading(".popup_type_edit-profile", false);
-      classPopupWithFormUser.close();
-    }) // закрываем попап при нажатии на сохранить})
-  formValidators[formProfile.getAttribute("name")].resetValidation();
+    });
+  // здесь был resetValidation();
 }
 // Обновление аватара
 function handleProfileAvatarSubmit(data) {
@@ -154,19 +156,19 @@ function handleProfileAvatarSubmit(data) {
     .postUserAvatar(data.avatar)
     .then((result) => {
       classUserInfo.setUserAvatar({ avatar: result.avatar });
+      classPopupWithFormAvatar.close();
     })
     .catch((err) => {
       console.log(`ошибка обращения к api.postUserAvatar ${err}`);
     })
     .finally(() => {
       renderLoading(".popup_type_edit-avatar", false);
-      classPopupWithFormAvatar.close(); // закрываем попап при нажатии на сохранить
-    })
-    ;
-  formValidators[formAvatar.getAttribute("name")].resetValidation();
+    });
+  // здесь был resetValidation();
 }
 
 function openProfilePopup() {
+  formValidators[formProfile.getAttribute("name")].resetValidation();
   const userInfo = classUserInfo.getUserInfo();
   formProfileNameInput.value = userInfo.name;
   formProfileSignInput.value = userInfo.sign;
@@ -174,10 +176,12 @@ function openProfilePopup() {
 }
 
 function openAvatarPopup() {
+  formValidators[formAvatar.getAttribute("name")].resetValidation();
   classPopupWithFormAvatar.open();
 }
 
 function openNewPlacePopup() {
+  formValidators[formPlace.getAttribute("name")].resetValidation();
   classPopupWithFormPlace.open();
 }
 
@@ -192,18 +196,13 @@ function handleSubmitNewPlace(place) {
     .postNewCard(place.name, place.link)
     .then((res) => {
       cardList.addItemBefore(generateCard(res));
-      renderLoading(".popup_type_new-place", false);
+      classPopupWithFormPlace.close();
     })
     .catch((err) => {
       console.log(`ошибка обращения к api.postNewCard ${err}`);
-    });
-  classPopupWithFormPlace.close();
-  formValidators[formPlace.getAttribute("name")].resetValidation();
-}
-// увеличить фото
-
-function handleZoomImage(name, link) {
-  classPopupWithImage.open(name, link);
+    })
+    .finally(() => renderLoading(".popup_type_new-place", false));
+  // здесь был resetValidation();
 }
 
 // ======= создание новых классов валидации и вызов ========

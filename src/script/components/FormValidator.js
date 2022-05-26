@@ -21,7 +21,7 @@ export class FormValidator {
 
   resetValidation() {
     this._formElement.reset();
-    this._buttonElement.setAttribute("disabled", true);
+    this._toggleButtonState();
   }
 
   _setListenerSabmit() {

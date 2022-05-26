@@ -5,12 +5,6 @@ export class UserInfo {
     this._userAvatar = document.querySelector(avatarSelector);
   }
 
-  loadUserInfo( {name, sign, avatar} ) {
-    this._userName.textContent = name;
-    this._userSign.textContent = sign;
-    this._userAvatar.style.backgroundImage = `url(${avatar})`;
-  };
-
   getUserInfo() {
     const user = {name:this._userName.textContent, sign:this._userSign.textContent, avatar:this._userAvatar.link};
       return user;
@@ -20,7 +14,6 @@ export class UserInfo {
     this._userName.textContent = name;
     this._userSign.textContent = sign;
   };
-    // https://i.pinimg.com/originals/62/8f/49/628f49798bba23a996bbb0fe8aad174e.jpg
 
   setUserAvatar( {avatar} ) {
     this._userAvatar.style.backgroundImage = `url(${avatar})`;
@@ -36,12 +29,5 @@ export class UserInfo {
   returnUserId() {
       return this._userId;
   }
-  // returnUserInfo() {
-  //   const user = {};
-  //   user['name'] = this._userName.textContent;
-  //   user['about'] = this._userSign.textContent;
-  //   user['avatar'] = this._userAvatar.style.backgroundImage.url;
-  //     return user
-// }
   
 }

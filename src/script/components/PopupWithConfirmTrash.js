@@ -12,7 +12,6 @@ export class PopupWithConfirmTrash extends Popup {
     this._cardId = id;
     this._cardElement = element;
     super.open();
-    document.addEventListener('keydown', this._handleEscClose);
   };
 
   _formSubmitHandler(evt) {
